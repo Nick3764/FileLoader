@@ -1,5 +1,4 @@
 
-#include <QMessageBox>
 #include "GUI.h"
 
 GUI::~GUI() {
@@ -58,7 +57,7 @@ void GUI::reset() {
 
     // Rimuovi i widget QLabels dal layout
     QLayoutItem* child;
-    while ((child = layout->takeAt(3)) != nullptr) {  // Inizia da index 2, poiché i widget cominciano da quel punto
+    while ((child = layout->takeAt(3)) != nullptr) {  // Inizia da index 3, poiché i widget cominciano da quel punto
         if (child->widget()) {
             delete child->widget();  // Dealloca la memoria occupata dai widget
         }

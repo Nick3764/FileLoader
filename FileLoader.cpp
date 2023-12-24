@@ -1,8 +1,5 @@
 
 #include "FileLoader.h"
-#include <QFile>
-
-#include <QFileInfo>
 
 FileLoader::FileLoader(QObject* parent) : QObject(parent), filesNumber(0) {}
 

@@ -2,11 +2,12 @@
 #ifndef LOADER_FILELOADER_H
 #define LOADER_FILELOADER_H
 
-#include "Subject.h"
+#include <QFile>
+#include <QFileInfo>
 #include <QObject>
 #include <QVector>
-#include <list>
 #include <QString>
+#include "Subject.h"
 
 class FileLoader :  public QObject, public Subject{
     Q_OBJECT
