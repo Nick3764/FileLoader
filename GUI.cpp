@@ -85,5 +85,3 @@ void GUI::openFileDialog() {
 void GUI::submit() {
     fl->load(selectedFiles);
 }
-
-
