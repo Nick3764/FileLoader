@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QMessageBox>
+#include <QScrollArea>
 #include <QVBoxLayout>
 #include <QProgressBar>
 #include <QFileDialog>
@@ -28,6 +29,9 @@ private slots:
 private:
     QProgressBar* progressBar;
     QVBoxLayout* layout;
+    QVBoxLayout *filesLayout;
+    QWidget *filesContainer;
+    QScrollArea *scrollArea;
     QVector<QString> selectedFiles;
     FileLoader* fl;
 };

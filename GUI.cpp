@@ -8,18 +8,26 @@ GUI::~GUI() {
 
 GUI::GUI(FileLoader *fl, QWidget *parent) : QMainWindow(parent), fl(fl) {
     this->setWindowTitle("Laboratorio di Programmazione - 2023");
-    this->setFixedSize(QSize(550, 350));
+    this->setFixedSize(QSize(600, 350));
 
     auto *centralWidget = new QWidget(this);
     this->setCentralWidget(centralWidget);
 
-    // Layout verticale per la finestra
-    layout = new QVBoxLayout(centralWidget);
-    layout->setAlignment(Qt::AlignCenter);
+    // Titolo sopra la progress bar
+    auto *titleLabel = new QLabel("Caricamento file di risorse e <br>aggiornamento di una progress bar", centralWidget);
+    titleLabel->setAlignment(Qt::AlignCenter);
+    QFont font("Arial", 25, QFont::Bold);
+    titleLabel->setFont(font);
 
-    // Creazione dei pulsanti
-    auto *chooseFilesButton = new QPushButton("Choose File", centralWidget);
-    auto *submitButton = new QPushButton("Submit", centralWidget);
+    // Spazio tra il titolo e la progress bar
+    auto *spacer = new QSpacerItem(1, 30, QSizePolicy::Minimum, QSizePolicy::Fixed);
+
+    // Layout verticale per il titolo
+    auto *titleLayout = new QVBoxLayout();
+    titleLayout->setAlignment(Qt::AlignTop);
+    titleLayout->addItem(spacer);
+    titleLayout->addWidget(titleLabel);
+    titleLayout->addItem(spacer);
 
     // Creazione della QProgressBar
     progressBar = new QProgressBar();
@@ -27,10 +35,40 @@ GUI::GUI(FileLoader *fl, QWidget *parent) : QMainWindow(parent), fl(fl) {
     progressBar->setRange(0, 100);
     progressBar->setAlignment(Qt::AlignCenter);
 
-    // Aggiunta dei pulsanti al layout principale
-    layout->addWidget(chooseFilesButton);
-    layout->addWidget(progressBar);
-    layout->addWidget(submitButton);
+    // Creazione dei pulsanti
+    auto *chooseFilesButton = new QPushButton("Choose File", centralWidget);
+    auto *submitButton = new QPushButton("Submit", centralWidget);
+    chooseFilesButton->setFixedWidth(172);
+    submitButton->setFixedWidth(172);
+    chooseFilesButton->setStyleSheet("QPushButton { background-color: grey; }");
+    submitButton->setStyleSheet("QPushButton { background-color: blue; }");
+
+    // Layout orizzontale per i pulsanti
+    auto *buttonsLayout = new QHBoxLayout();
+    buttonsLayout->setAlignment(Qt::AlignCenter);
+    buttonsLayout->addWidget(chooseFilesButton);
+    buttonsLayout->addWidget(submitButton);
+
+    // Layout verticale per la progress bar e i pulsanti
+    auto *progressLayout = new QVBoxLayout();
+    progressLayout->setAlignment(Qt::AlignCenter);
+    progressLayout->addWidget(progressBar);
+    progressLayout->addLayout(buttonsLayout);
+
+    // Creazione dell'area scrollabile contenente le etichette dei file selezionati
+    filesContainer = new QWidget();
+    filesLayout = new QVBoxLayout(filesContainer);
+    scrollArea = new QScrollArea();
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setWidget(filesContainer);
+    scrollArea->setStyleSheet("background-color: white;");
+
+    // Layout principale della finestra
+    layout = new QVBoxLayout(centralWidget);
+    layout->setAlignment(Qt::AlignTop);
+    layout->addLayout(titleLayout);
+    layout->addLayout(progressLayout);
+    layout->addWidget(scrollArea);
 
     // Connessione dei pulsanti ai rispettivi slot
     connect(chooseFilesButton, &QPushButton::clicked, this, &GUI::openFileDialog);
@@ -46,7 +84,7 @@ void GUI::update(int value) {
     if (value == 100) {
         QMessageBox::information(this, "Completed", "Loading completed!");
 
-        // Resetta la progress bar e cancella i file scelti
+        // Resetta la progress bar e la scrollArea e cancella i file scelti
         reset();
     }
 }
@@ -55,13 +93,15 @@ void GUI::reset() {
     progressBar->setValue(0);
     selectedFiles.clear();
 
-    // Rimuovi i widget QLabels dal layout
-    QLayoutItem* child;
-    while ((child = layout->takeAt(3)) != nullptr) {  // Inizia da index 3, poiché i widget cominciano da quel punto
+    // Rimuove i widget dei file scelti
+    QLayoutItem *child;
+    while ((child = filesLayout->takeAt(0)) != nullptr) {
         if (child->widget()) {
-            delete child->widget();  // Dealloca la memoria occupata dai widget
+            QWidget *widget = child->widget();
+            delete widget;
         }
-        delete child;  // Dealloca la memoria utilizzata per il layout item
+        // Dealloca la memoria utilizzata per il layout item
+        delete child;
     }
 }
 
@@ -76,7 +116,8 @@ void GUI::openFileDialog() {
     if (!fileNames.isEmpty()) {
         for (const QString& fileName : fileNames) {
             auto *fileLabel = new QLabel(fileName, this);
-            layout->addWidget(fileLabel);
+            fileLabel->setStyleSheet("color: black;");
+            filesLayout->addWidget(fileLabel);
             selectedFiles.push_back(fileName);
         }
     }
