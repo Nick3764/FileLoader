@@ -14,8 +14,6 @@ add_executable(Loader main.cpp
         Subject.h
         FileLoader.h
         FileLoader.cpp
-        ResourceFile.h
-        ResourceFile.cpp
         GUI.h
         GUI.cpp
 )
