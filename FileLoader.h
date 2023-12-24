@@ -3,7 +3,6 @@
 #define LOADER_FILELOADER_H
 
 #include "Subject.h"
-#include "ResourceFile.h"
 #include <QObject>
 #include <QVector>
 #include <list>

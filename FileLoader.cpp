@@ -1,9 +1,7 @@
-//
-// Created by Utente on 23/12/2023.
-//
+
 #include "FileLoader.h"
 #include <QFile>
-#include <QTextStream>
+
 #include <QFileInfo>
 
 FileLoader::FileLoader(QObject* parent) : QObject(parent), filesNumber(0) {}
