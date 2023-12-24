@@ -16,6 +16,8 @@ add_executable(Loader main.cpp
         FileLoader.cpp
         ResourceFile.h
         ResourceFile.cpp
+        GUI.h
+        GUI.cpp
 )
 
 target_link_libraries(Loader Qt6::Widgets)
