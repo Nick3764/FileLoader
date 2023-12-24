@@ -8,9 +8,9 @@ GUI::~GUI() {
 
 GUI::GUI(FileLoader *fl, QWidget *parent) : QMainWindow(parent), fl(fl) {
     this->setWindowTitle("Laboratorio di Programmazione - 2023");
-    this->setFixedSize(QSize(700, 500));
+    this->setFixedSize(QSize(550, 350));
 
-    QWidget *centralWidget = new QWidget(this);
+    auto *centralWidget = new QWidget(this);
     this->setCentralWidget(centralWidget);
 
     // Layout verticale per la finestra
@@ -18,8 +18,8 @@ GUI::GUI(FileLoader *fl, QWidget *parent) : QMainWindow(parent), fl(fl) {
     layout->setAlignment(Qt::AlignCenter);
 
     // Creazione dei pulsanti
-    QPushButton *chooseFilesButton = new QPushButton("Scegli File", centralWidget);
-    QPushButton *submitButton = new QPushButton("Submit", centralWidget);
+    auto *chooseFilesButton = new QPushButton("Choose File", centralWidget);
+    auto *submitButton = new QPushButton("Submit", centralWidget);
 
     // Creazione della QProgressBar
     progressBar = new QProgressBar();
@@ -44,7 +44,7 @@ void GUI::update(int value) {
     progressBar->setValue(value);
 
     if (value == 100) {
-        QMessageBox::information(this, "Completed", "Caricamento completato!");
+        QMessageBox::information(this, "Completed", "Loading completed!");
 
         // Resetta la progress bar e cancella i file scelti
         reset();
@@ -68,14 +68,14 @@ void GUI::reset() {
 void GUI::openFileDialog() {
     QStringList fileNames = QFileDialog::getOpenFileNames(
             this,
-            tr("Scegli File da Caricare"),
+            tr("Choose a file to load"),
             QDir::homePath(),
-            tr("Tutti i Files (*.txt)")
+            tr("Text files only (*.txt)")
     );
 
     if (!fileNames.isEmpty()) {
         for (const QString& fileName : fileNames) {
-            QLabel *fileLabel = new QLabel(fileName, this);
+            auto *fileLabel = new QLabel(fileName, this);
             layout->addWidget(fileLabel);
             selectedFiles.push_back(fileName);
         }
