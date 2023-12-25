@@ -1,5 +1,4 @@
 
-#include <iostream>
 #include "FileLoader.h"
 
 FileLoader::FileLoader(QObject* parent) : QObject(parent), filesNumber(0) {}
