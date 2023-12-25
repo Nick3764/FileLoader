@@ -5,12 +5,13 @@
 TEST(FileLoaderTest, LoadFiles) {
     FileLoader fileLoader;
     QVector <QString> files;
-// Aggiungi file validi alla lista
-    files.push_back("path/to/valid_file1.txt");
-    files.push_back("path/to/valid_file2.txt");
 
-// Verifica che il caricamento avvenga correttamente
+    // Aggiunta file validi alla lista
+    files.push_back("C:/Users/Utente/Desktop/1.txt");
+    files.push_back("C:/Users/Utente/Desktop/2.txt");
+
+    // Verifica del corretto caricamento
     EXPECT_NO_THROW({
-                        fileLoader.load(files);
-                    });
+        fileLoader.load(files);
+    });
 }
