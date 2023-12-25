@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 #include "../FileLoader.h"
-#include <../QVector>
 
 // Test case per verificare il caricamento dei file
 TEST(FileLoaderTest, LoadFiles) {
