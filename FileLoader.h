@@ -17,13 +17,15 @@ public:
 
     void addObserver(Observer* o) override;
     void removeObserver(Observer* o) override;
-    void notifyObservers(int value) override;
+    void notifyObservers() override;
+    long long getProgress() const;
 
 public slots:
     void load(const QVector<QString>& files);
 
 private:
-    int filesNumber;
+    long long filesNumber;
+    long long progress;
     QVector<Observer*> observers;
 };
 

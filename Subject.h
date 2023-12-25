@@ -10,7 +10,7 @@ protected:
 public:
     virtual void addObserver(Observer* o) = 0;
     virtual void removeObserver(Observer* o) = 0;
-    virtual void notifyObservers(int value) = 0;
+    virtual void notifyObservers() = 0;
 };
 
 #endif //LOADER_SUBJECT_H

@@ -78,10 +78,9 @@ GUI::GUI(FileLoader *fl, QWidget *parent) : QMainWindow(parent), fl(fl) {
 }
 
 
-void GUI::update(int value) {
-    progressBar->setValue(value);
-
-    if (value == 100) {
+void GUI::update() {
+    progressBar->setValue(static_cast<int>(fl->getProgress()));
+    if (fl->getProgress() == 100) {
         QMessageBox::information(this, "Completed", "Loading completed!");
 
         // Resetta la progress bar e la scrollArea e cancella i file scelti

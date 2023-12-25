@@ -11,15 +11,16 @@
 #include <QFileDialog>
 #include <QLabel>
 #include <QVector>
+#include <iostream>
 #include "FileLoader.h"
 
 class GUI : public QMainWindow, public Observer{
     Q_OBJECT
 public:
-    GUI(FileLoader* fl, QWidget* parent = nullptr);
+    explicit GUI(FileLoader* fl, QWidget* parent = nullptr);
     ~GUI() override;
 
-    void update(int value) override;
+    void update() override;
     void reset();
 
 private slots:

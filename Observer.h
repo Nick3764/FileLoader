@@ -5,7 +5,7 @@
 class Observer {
 public:
     virtual ~Observer() = default;
-    virtual void update(int value) = 0;
+    virtual void update() = 0;
 };
 
 #endif //LOADER_OBSERVER_H

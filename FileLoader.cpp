@@ -1,4 +1,5 @@
 
+#include <iostream>
 #include "FileLoader.h"
 
 FileLoader::FileLoader(QObject* parent) : QObject(parent), filesNumber(0) {}
@@ -11,13 +12,15 @@ void FileLoader::removeObserver(Observer *o) {
     observers.removeAll(o);
 }
 
-void FileLoader::notifyObservers(int value) {
+void FileLoader::notifyObservers() {
     for(Observer* observer : observers)
-        observer->update(value);
+        observer->update();
 }
 
 void FileLoader::load(const QVector<QString>& files) {
-    int totalSize = 0;
+    long long  totalSize = 0;
+    progress = 0;
+
     for (const QString& filePath : files) {
         QFileInfo fileInfo(filePath);
         if (!fileInfo.exists() || fileInfo.suffix().toLower() != "txt") {
@@ -26,8 +29,9 @@ void FileLoader::load(const QVector<QString>& files) {
         totalSize += fileInfo.size(); // Aggiungi la dimensione del file alla dimensione totale
     }
 
+    //qDebug() << "Total Size:" << totalSize;
     filesNumber = files.size();
-    int loadedSize = 0;
+    long long  loadedSize = 0;
 
     for (const QString& filePath : files) {
         QFileInfo fileInfo(filePath);
@@ -37,14 +41,21 @@ void FileLoader::load(const QVector<QString>& files) {
 
         QFile file(filePath);
         if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-            loadedSize += fileInfo.size(); // Aggiorna la dimensione caricata
-
-            int progress = (loadedSize * 100) / totalSize;
-            notifyObservers(progress);
+            while (!file.atEnd()) {
+                QByteArray line = file.readLine() + 1;
+                loadedSize += line.size(); // Aggiorna la dimensione caricata
+                //qDebug() << "Loaded Size:" << loadedSize;
+                progress = (loadedSize * 100) / totalSize;
+                notifyObservers();
+            }
 
             file.close();
         }
     }
+}
+
+long long FileLoader::getProgress() const {
+    return progress;
 }
 
 
