@@ -1,7 +1,7 @@
 
 #include "FileLoader.h"
 
-FileLoader::FileLoader(QObject* parent) : QObject(parent), filesNumber(0) {}
+FileLoader::FileLoader(QObject* parent) : QObject(parent), filesNumber(0), progress(0) {}
 
 void FileLoader::addObserver(Observer *o) {
     observers.push_back(o);
@@ -27,7 +27,6 @@ void FileLoader::load(const QVector<QString>& files) {
         }
         totalSize += fileInfo.size(); // Aggiungi la dimensione del file alla dimensione totale
     }
-
     //qDebug() << "Total Size:" << totalSize;
     filesNumber = files.size();
     long long  loadedSize = 0;
