@@ -18,6 +18,7 @@ public:
     void addObserver(Observer* o) override;
     void removeObserver(Observer* o) override;
     void notifyObservers() override;
+
     long long getProgress() const;
 
 public slots:
