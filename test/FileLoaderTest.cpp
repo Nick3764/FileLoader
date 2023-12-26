@@ -14,4 +14,7 @@ TEST(FileLoaderTest, LoadFiles) {
     EXPECT_NO_THROW({
         fileLoader.load(files);
     });
+
+    EXPECT_EQ(fileLoader.getProgress(), 100);
+
 }
