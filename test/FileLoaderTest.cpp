@@ -12,9 +12,25 @@ TEST(FileLoaderTest, LoadFiles) {
 
     // Verifica del corretto caricamento
     EXPECT_NO_THROW({
-        fileLoader.load(files);
-    });
+        fileLoader.load(files);});
 
     EXPECT_EQ(fileLoader.getProgress(), 100);
+}
 
+
+// Test case per verificare il comportamento con file non validi
+TEST(FileLoaderTest, LoadInvalidFiles) {
+    FileLoader fileLoader;
+    QVector<QString> files;
+
+    // Aggiunta file non validi alla lista
+    files.push_back("path/to/non_existing_file_1.txt");
+    files.push_back("path/to/non_existing_file_2.txt");
+
+    // Verifica che il caricamento non sollevi eccezioni
+    EXPECT_NO_THROW({
+        fileLoader.load(files);});
+
+    // Verifica che il progresso sia rimasto a 0
+    EXPECT_EQ(fileLoader.getProgress(), 0);
 }
