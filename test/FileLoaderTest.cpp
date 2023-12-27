@@ -17,7 +17,6 @@ TEST(FileLoaderTest, LoadFiles) {
     EXPECT_EQ(fileLoader.getProgress(), 100);
 }
 
-
 // Test case per verificare il comportamento con file non validi
 TEST(FileLoaderTest, LoadInvalidFiles) {
     FileLoader fileLoader;
@@ -27,9 +26,10 @@ TEST(FileLoaderTest, LoadInvalidFiles) {
     files.push_back("path/to/non_existing_file_1.txt");
     files.push_back("path/to/non_existing_file_2.txt");
 
-    // Verifica che il caricamento non sollevi eccezioni
-    EXPECT_NO_THROW({
-        fileLoader.load(files);});
+    // Verifica che il caricamento sollevi un'eccezione
+    ASSERT_THROW({
+        fileLoader.load(files);},
+                 std::runtime_error);
 
     // Verifica che il progresso sia rimasto a 0
     EXPECT_EQ(fileLoader.getProgress(), 0);
