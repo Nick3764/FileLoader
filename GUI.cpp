@@ -6,7 +6,7 @@ GUI::~GUI() {
     delete layout;
 }
 
-GUI::GUI(FileLoader *fl, QWidget *parent) : QMainWindow(parent), fl(fl) {
+GUI::GUI(FileLoader *fileLoader, QWidget *parent) : QMainWindow(parent), fl(fileLoader) {
     this->setWindowTitle("Laboratorio di Programmazione - 2023");
     this->setFixedSize(QSize(600, 350));
 
