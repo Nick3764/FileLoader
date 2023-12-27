@@ -3,7 +3,6 @@
 
 GUI::~GUI() {
     fl->removeObserver(this);
-    delete layout;
 }
 
 GUI::GUI(FileLoader *fileLoader, QWidget *parent) : QMainWindow(parent), fl(fileLoader) {
@@ -36,8 +35,8 @@ GUI::GUI(FileLoader *fileLoader, QWidget *parent) : QMainWindow(parent), fl(file
     progressBar->setAlignment(Qt::AlignCenter);
 
     // Creazione dei pulsanti
-    auto *chooseFilesButton = new QPushButton("Choose File", centralWidget);
-    auto *submitButton = new QPushButton("Submit", centralWidget);
+    chooseFilesButton = new QPushButton("Choose File", centralWidget);
+    submitButton = new QPushButton("Submit", centralWidget);
     chooseFilesButton->setFixedWidth(172);
     submitButton->setFixedWidth(172);
     chooseFilesButton->setStyleSheet("QPushButton { background-color: grey; }");
@@ -77,12 +76,16 @@ GUI::GUI(FileLoader *fileLoader, QWidget *parent) : QMainWindow(parent), fl(file
     fl->addObserver(this);
 }
 
-
 void GUI::update() {
     progressBar->setValue(static_cast<int>(fl->getProgress()));
     if (fl->getProgress() == 100) {
         QMessageBox::information(this, "Completed", "Loading completed!");
 
+        // Riabilita i pulsanti dopo il caricamento completato
+        if (chooseFilesButton && submitButton) {
+            chooseFilesButton->setEnabled(true);
+            submitButton->setEnabled(true);
+        }
         // Resetta la progress bar e la scrollArea e cancella i file scelti
         reset();
     }
@@ -123,7 +126,17 @@ void GUI::openFileDialog() {
 }
 
 void GUI::submit() {
-    fl->load(selectedFiles);
+    try {
+        // Disabilita i pulsanti durante il caricamento
+        if (chooseFilesButton && submitButton) {
+            chooseFilesButton->setEnabled(false);
+            submitButton->setEnabled(false);
+
+            fl->load(selectedFiles);
+        }
+    } catch(const std::exception& e) {
+        qDebug() << "Exception captured: " << e.what();
+    }
 }
 
 long long GUI::getSelectedFilesCount() const {
@@ -137,6 +150,6 @@ int GUI::getProgressBarValue() const {
         return 0;}
 }
 
-void GUI::setProgress(int value) {
+void GUI::setBarProgress(int value) {
     progressBar->setValue(value);
 }

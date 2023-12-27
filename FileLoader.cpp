@@ -34,7 +34,7 @@ void FileLoader::load(const QVector<QString>& files) {
     for (const QString& filePath : files) {
         QFileInfo fileInfo(filePath);
         if (!fileInfo.exists() || fileInfo.suffix().toLower() != "txt") {
-            continue;
+            throw std::runtime_error("File not found or non .txt: " + filePath.toStdString());
         }
 
         QFile file(filePath);
@@ -48,6 +48,8 @@ void FileLoader::load(const QVector<QString>& files) {
             }
 
             file.close();
+        }else{
+            throw std::runtime_error("File can not be opened: " + filePath.toStdString());
         }
     }
 }
@@ -59,7 +61,3 @@ long long FileLoader::getProgress() const {
 void FileLoader::setProgress(long long value) {
     progress = value;
 }
-
-
-
-

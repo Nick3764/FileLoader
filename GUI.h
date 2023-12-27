@@ -17,7 +17,7 @@
 class GUI : public QMainWindow, public Observer{
     Q_OBJECT
 public:
-    explicit GUI(FileLoader* fl, QWidget* parent = nullptr);
+    explicit GUI(FileLoader* fileLoader, QWidget* parent = nullptr);
     ~GUI() override;
 
     void update() override;
@@ -25,7 +25,7 @@ public:
 
     long long getSelectedFilesCount() const;
     int getProgressBarValue() const;
-    void setProgress(int value);
+    void setBarProgress(int value);
 
 private slots:
     void openFileDialog();
@@ -34,11 +34,13 @@ private slots:
 private:
     QProgressBar* progressBar;
     QVBoxLayout* layout;
-    QVBoxLayout *filesLayout;
-    QWidget *filesContainer;
-    QScrollArea *scrollArea;
+    QVBoxLayout* filesLayout;
+    QWidget* filesContainer;
+    QScrollArea* scrollArea;
     QVector<QString> selectedFiles;
     FileLoader* fl;
+    QPushButton* chooseFilesButton;
+    QPushButton* submitButton;
 };
 
 #endif //LOADER_GUI_H

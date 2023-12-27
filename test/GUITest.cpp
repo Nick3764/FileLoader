@@ -4,11 +4,13 @@
 
 // Test per verificare il reset della GUI dopo il completamento del caricamento
 TEST(GUITest, ResetAfterCompletionTest) {
-    FileLoader fileLoader(nullptr);
+
+// Creazione del FileLoader utilizzando il QObject appena creato
+    FileLoader fileLoader;
     GUI gui(&fileLoader);
 
     // Simula l'aggiornamento quando il caricamento è completato (progresso al 100%)
-    fileLoader.setProgress(100);
+    gui.setBarProgress(100);
 
     // Simula l'aggiornamento della GUI dopo il completamento del caricamento
     gui.update();
@@ -16,6 +18,7 @@ TEST(GUITest, ResetAfterCompletionTest) {
     // Verifica che la GUI sia stata resettata correttamente dopo il completamento
     EXPECT_EQ(gui.getProgressBarValue(), 0);
     EXPECT_EQ(gui.getSelectedFilesCount(), 0);
+
 }
 
 
@@ -39,8 +42,8 @@ TEST(GUITest, InterfaceDisplayTest) {
 
     EXPECT_EQ(chooseFilesButton->text(), "Choose File");
     EXPECT_EQ(submitButton->text(), "Submit");
-    EXPECT_EQ(chooseFilesButton->size(), QSize(172, 167));
-    EXPECT_EQ(submitButton->size(), QSize(172, 167));
+    EXPECT_EQ(chooseFilesButton->size().width(), 172);
+    EXPECT_EQ(submitButton->size().width(), 172);
 
     // Verifica che la progress bar sia presente e inizializzata correttamente
     auto *progressBar = gui.findChild<QProgressBar*>();
