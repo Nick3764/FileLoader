@@ -23,6 +23,10 @@ public:
     void update() override;
     void reset();
 
+    long long getSelectedFilesCount() const;
+    int getProgressBarValue() const;
+    void setProgress(int value);
+
 private slots:
     void openFileDialog();
     void submit();

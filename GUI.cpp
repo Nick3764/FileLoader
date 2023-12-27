@@ -125,3 +125,18 @@ void GUI::openFileDialog() {
 void GUI::submit() {
     fl->load(selectedFiles);
 }
+
+long long GUI::getSelectedFilesCount() const {
+    return selectedFiles.size();
+}
+
+int GUI::getProgressBarValue() const {
+    if (progressBar) {
+        return progressBar->value();
+    } else {
+        return 0;}
+}
+
+void GUI::setProgress(int value) {
+    progressBar->setValue(value);
+}

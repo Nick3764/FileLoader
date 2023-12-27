@@ -18,7 +18,7 @@ void FileLoader::notifyObservers() {
 
 void FileLoader::load(const QVector<QString>& files) {
     long long  totalSize = 0;
-    progress = 0;
+    setProgress(0);
 
     for (const QString& filePath : files) {
         QFileInfo fileInfo(filePath);
@@ -43,7 +43,7 @@ void FileLoader::load(const QVector<QString>& files) {
                 QByteArray line = file.readLine() + 1;
                 loadedSize += line.size(); // Aggiorna la dimensione caricata
                 //qDebug() << "Loaded Size:" << loadedSize;
-                progress = (loadedSize * 100) / totalSize;
+                setProgress((loadedSize * 100) / totalSize);
                 notifyObservers();
             }
 
@@ -54,6 +54,10 @@ void FileLoader::load(const QVector<QString>& files) {
 
 long long FileLoader::getProgress() const {
     return progress;
+}
+
+void FileLoader::setProgress(long long value) {
+    progress = value;
 }
 
 

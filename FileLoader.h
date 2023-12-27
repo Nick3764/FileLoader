@@ -20,6 +20,7 @@ public:
     void notifyObservers() override;
 
     long long getProgress() const;
+    void setProgress(long long value);
 
 public slots:
     void load(const QVector<QString>& files);
