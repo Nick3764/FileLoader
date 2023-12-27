@@ -9,10 +9,10 @@ TEST(GUITest, ResetAfterCompletionTest) {
     FileLoader fileLoader;
     GUI gui(&fileLoader);
 
-    // Simula l'aggiornamento quando il caricamento è completato (progresso al 100%)
+    // Impostazione progresso al 100%
     gui.setBarProgress(100);
 
-    // Simula l'aggiornamento della GUI dopo il completamento del caricamento
+    // Simulazione dell'aggiornamento della GUI dopo il completamento del caricamento
     gui.update();
 
     // Verifica che la GUI sia stata resettata correttamente dopo il completamento
