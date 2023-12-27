@@ -18,7 +18,6 @@ TEST(GUITest, ResetAfterCompletionTest) {
     // Verifica che la GUI sia stata resettata correttamente dopo il completamento
     EXPECT_EQ(gui.getProgressBarValue(), 0);
     EXPECT_EQ(gui.getSelectedFilesCount(), 0);
-
 }
 
 
@@ -34,8 +33,8 @@ TEST(GUITest, InterfaceDisplayTest) {
     EXPECT_EQ(gui.size(), QSize(600, 350));
 
     // Verifica che i pulsanti siano presenti e abbiano le dimensioni corrette
-    auto *chooseFilesButton = gui.findChild<QPushButton*>("Choose File");
-    auto *submitButton = gui.findChild<QPushButton*>("Submit");
+    auto *chooseFilesButton = gui.findChild<QPushButton*>("chooseFilesButton");
+    auto *submitButton = gui.findChild<QPushButton*>("submitButton");
 
     ASSERT_TRUE(chooseFilesButton != nullptr);
     ASSERT_TRUE(submitButton != nullptr);

@@ -60,6 +60,8 @@ GUI::GUI(FileLoader *fileLoader, QWidget *parent) : QMainWindow(parent), fl(file
     // Creazione dei pulsanti
     chooseFilesButton = new QPushButton("Choose File", centralWidget);
     submitButton = new QPushButton("Submit", centralWidget);
+    chooseFilesButton->setObjectName("chooseFilesButton");
+    submitButton->setObjectName("submitButton");
     chooseFilesButton->setFixedWidth(172);
     submitButton->setFixedWidth(172);
     chooseFilesButton->setStyleSheet("QPushButton { background-color: grey; }");
