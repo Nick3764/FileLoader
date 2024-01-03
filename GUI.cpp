@@ -26,7 +26,7 @@ GUI::~GUI() {
     }
 }
 
-GUI::GUI(FileLoader *fileLoader, QWidget *parent) : QMainWindow(parent), fl(fileLoader) {
+GUI::GUI(FileLoader *fileLoader, QWidget *parent, Qt::WindowFlags wf) : QMainWindow(parent, wf), fl(fileLoader) {
     // Impostazione nome e dimensione della finestra
     this->setWindowTitle("Laboratorio di Programmazione - 2023");
     this->setFixedSize(QSize(600, 350));

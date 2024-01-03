@@ -17,7 +17,7 @@
 class GUI : public QMainWindow, public Observer{
     Q_OBJECT
 public:
-    explicit GUI(FileLoader* fileLoader, QWidget* parent = nullptr);
+    explicit GUI(FileLoader* fileLoader, QWidget* parent = nullptr, Qt::WindowFlags wf = Qt::WindowFlags());
     ~GUI() override;
 
     void update() override;
